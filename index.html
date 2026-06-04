@@ -1,34 +1,514 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FP&A Dashboard Portfolio</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Liên Anh | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #f5f5f5;
+    :root {
+      --bg:       #F5F2EE;
+      --surface:  #FFFFFF;
+      --border:   #E2DAD0;
+      --text:     #1A1209;
+      --sub:      #6B5B4E;
+      --muted:    #9E8E7E;
+      --milk:     #C08040;
+      --dark:     #7B4220;
+      --gold:     #C8960A;
+      --mint:     #3D8A60;
+      --berry:    #B03050;
+      --tag-bg:   #EDE6DC;
     }
-    h1 { color: #2c3e50; }
-    p { color: #555; }
-    .dashboard-container {
-      background: white;
-      padding: 20px;
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      padding: 0 48px;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(245,242,238,.96);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+
+    .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      color: var(--dark);
+    }
+
+    .tab-nav { display: flex; gap: 4px; }
+
+    .tab-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .07em;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--milk);
+      border-color: var(--border);
+      background: var(--tag-bg);
+    }
+
+    .tab-btn.active {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: #F9EBD8;
+      font-weight: 500;
+    }
+
+    /* ── PANEL ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── DASH PANEL ── */
+    .dash-panel { padding: 36px 48px 56px; }
+
+    .dash-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .dash-eyebrow {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--milk);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .dash-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .dash-meta {
+      font-size: 12.5px;
+      color: var(--sub);
+      margin-top: 6px;
+      line-height: 1.65;
+      max-width: 500px;
+    }
+
+    /* ── KPI PILLS ── */
+    .kpi-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-start; }
+
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 10px 18px;
+      text-align: right;
+      min-width: 108px;
+    }
+
+    .kpi-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      color: var(--dark);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .kpi-lbl {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    /* ── TABLEAU WRAP ── */
+    .tableau-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .tableau-inner { width: 100%; line-height: 0; }
+
+    /* ── INSIGHT ROW (chocolate) ── */
+    .insight-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-top: 1px solid var(--border);
+    }
+
+    .insight {
+      background: var(--surface);
+      padding: 18px 22px;
+    }
+
+    .i-label {
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--milk);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .insight p { font-size: 12.5px; color: var(--sub); line-height: 1.6; }
+    .hi  { color: var(--gold); font-weight: 500; }
+    .pos { color: var(--mint); font-weight: 500; }
+    .neg { color: var(--berry); font-weight: 500; }
+
+    /* ── INSIGHTS TOGGLE (food delivery) ── */
+    .insights-toggle-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      user-select: none;
+      background: var(--surface);
+      transition: background .15s;
+    }
+
+    .insights-toggle-bar:hover { background: var(--tag-bg); }
+
+    .insights-toggle-label {
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--milk);
+      font-weight: 500;
+    }
+
+    .toggle-icon {
+      font-size: 13px;
+      color: var(--muted);
+      transition: transform .25s;
+      line-height: 1;
+    }
+
+    .toggle-icon.open { transform: rotate(180deg); }
+
+    .insights-body {
+      display: none;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .insights-body.open { display: block; }
+
+    .insights-content {
+      padding: 20px 24px 24px;
+    }
+
+    .insights-content p {
+      font-size: 13px;
+      color: var(--sub);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .insights-content p:last-child { margin-bottom: 0; }
+
+    .insights-content .bullet {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .insights-content .bullet-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--milk);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    .insights-content .bullet p { margin-bottom: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p { font-size: 11.5px; color: var(--muted); }
+
+    footer a {
+      color: var(--milk);
+      text-decoration: none;
+      font-size: 11.5px;
+      letter-spacing: .05em;
+      transition: color .15s;
+    }
+
+    footer a:hover { color: var(--dark); }
+
+    @media (max-width: 700px) {
+      .topbar { padding: 0 20px; }
+      .dash-panel { padding: 24px 20px 40px; }
+      .insight-row { grid-template-columns: 1fr; }
+      footer { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <h1>FP&A Dashboard Portfolio</h1>
-  <p>Chocolate Sales Performance 2023–2024</p>
-  <div class="dashboard-container">
 
-    <div class='tableauPlaceholder' id='viz1780458025374' style='position: relative'><noscript><a href='#'><img alt='Sales Performance ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ch&#47;ChocolateSalesDataset2023-2024&#47;SalesPerformance&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='ChocolateSalesDataset2023-2024&#47;SalesPerformance' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ch&#47;ChocolateSalesDataset2023-2024&#47;SalesPerformance&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div><script type='text/javascript'>var divElement = document.getElementById('viz1780458025374'); var vizElement = divElement.getElementsByTagName('object')[0]; if ( divElement.offsetWidth > 800 ) { vizElement.style.width='800px';vizElement.style.height='627px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='800px';vizElement.style.height='627px';} else { vizElement.style.width='100%';vizElement.style.height='2177px';} var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);</script>
+<!-- ── TOP BAR ── -->
+<header class="topbar">
+  <span class="wordmark">LA &nbsp;·&nbsp; Portfolio</span>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('chocolate', this)">Chocolate Sales</button>
 
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════
+     PANEL 1 — CHOCOLATE SALES
+══════════════════════════════════ -->
+<div id="panel-chocolate" class="panel active">
+  <section class="dash-panel">
+    <div class="dash-header">
+      <div class="dash-title-block">
+        <p class="dash-eyebrow">Tableau · Sales Performance</p>
+        <h1 class="dash-title">Chocolate Sales Performance 2023–2024</h1>
+        <p class="dash-meta">Revenue, volume & margin across 7 cities, 5 brands, 3 store types. Use Year / Quarter / Brand / City filters to drill down.</p>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-val">$25.49M</div>
+          <div class="kpi-lbl">Total Revenue</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val">40.0%</div>
+          <div class="kpi-lbl">Gross Margin</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val">1.00M</div>
+          <div class="kpi-lbl">Transactions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tableau-wrap">
+      <div class="tableau-inner">
+        <div class="tableauPlaceholder" id="viz-choc" style="position:relative;">
+          <noscript><a href="#"><img alt="Sales Performance" src="https://public.tableau.com/static/images/Ch/ChocolateSalesDataset2023-2024/SalesPerformance/1_rss.png" style="border:none;width:100%;"/></a></noscript>
+          <object class="tableauViz" style="display:none;">
+            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"/>
+            <param name="embed_code_version" value="3"/>
+            <param name="site_root" value=""/>
+            <param name="name" value="ChocolateSalesDataset2023-2024/SalesPerformance"/>
+            <param name="tabs" value="no"/>
+            <param name="toolbar" value="yes"/>
+            <param name="static_image" value="https://public.tableau.com/static/images/Ch/ChocolateSalesDataset2023-2024/SalesPerformance/1.png"/>
+            <param name="animate_transition" value="yes"/>
+            <param name="display_static_image" value="yes"/>
+            <param name="display_spinner" value="yes"/>
+            <param name="display_overlay" value="yes"/>
+            <param name="display_count" value="yes"/>
+            <param name="language" value="en-US"/>
+          </object>
+        </div>
+        <script type="text/javascript">
+          (function(){
+            var d = document.getElementById('viz-choc');
+            var v = d.getElementsByTagName('object')[0];
+            var w = d.offsetWidth || window.innerWidth - 96;
+            v.style.width = '100%';
+            v.style.height = Math.round(w * 0.62) + 'px';
+            var s = document.createElement('script');
+            s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            v.parentNode.insertBefore(s, v);
+          })();
+        </script>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight">
+          <p class="i-label">Top Brand</p>
+          <p><span class="hi">Ferrero $4.69M</span> — 18.4% of total, driven by premium pricing and strong airport channel presence.</p>
+        </div>
+        <div class="insight">
+          <p class="i-label">Channel Mix</p>
+          <p>Airport stores contribute <span class="hi">29.9%</span> of revenue — highest revenue-per-transaction across all store types.</p>
+        </div>
+        <div class="insight">
+          <p class="i-label">Watch Point</p>
+          <p>Revenue peaked at <span class="hi">$3.22M in Q3 2023</span> then dropped sharply to Q1 2024 low — timing and cause of the decline warrants brand-level drill-down.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOD DELIVERY PANEL REMOVED -->
+<div id="panel-food" class="panel" style="display:none!important">
+  <section class="dash-panel">
+    <div class="dash-header">
+      <div class="dash-title-block">
+        <p class="dash-eyebrow">Tableau · Cost & Profitability</p>
+        <h1 class="dash-title">Food Delivery Cost & Profitability Dashboard</h1>
+        <p class="dash-meta">P&L framework and profitability driver analysis for a food delivery platform. New Delhi dataset via Kaggle. Use Order Date, Discount Offers, and Payment Method filters to segment.</p>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-val">$126,990</div>
+          <div class="kpi-lbl">Total Revenue</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val">($34,052)</div>
+          <div class="kpi-lbl">Total Profit</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val">−26.8%</div>
+          <div class="kpi-lbl">Profit Margin</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tableau-wrap">
+      <div class="tableau-inner">
+        <div class="tableauPlaceholder" id="viz1780535461473" style="position:relative;">
+          <noscript><a href="#"><img alt="Performance Dashboard" src="https://public.tableau.com/static/images/Fo/FoodDeliveryCostandProfitabilityDashboard/PerformanceDashboard/1_rss.png" style="border:none;"/></a></noscript>
+          <object class="tableauViz" style="display:none;">
+            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"/>
+            <param name="embed_code_version" value="3"/>
+            <param name="site_root" value=""/>
+            <param name="name" value="FoodDeliveryCostandProfitabilityDashboard/PerformanceDashboard"/>
+            <param name="tabs" value="no"/>
+            <param name="toolbar" value="yes"/>
+            <param name="static_image" value="https://public.tableau.com/static/images/Fo/FoodDeliveryCostandProfitabilityDashboard/PerformanceDashboard/1.png"/>
+            <param name="animate_transition" value="yes"/>
+            <param name="display_static_image" value="yes"/>
+            <param name="display_spinner" value="yes"/>
+            <param name="display_overlay" value="yes"/>
+            <param name="display_count" value="yes"/>
+            <param name="language" value="en-US"/>
+            <param name="filter" value="publish=yes"/>
+          </object>
+        </div>
+        <script type="text/javascript">
+          window._foodVizReady = false;
+          function initFoodViz() {
+            if (window._foodVizReady) return;
+            window._foodVizReady = true;
+            var divElement = document.getElementById('viz1780535461473');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            var w = window.innerWidth - 96;
+            vizElement.style.width = '100%';
+            vizElement.style.height = Math.round(w * 0.75) + 'px';
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+          }
+        </script>
+      </div>
+
+      <!-- Insights toggle -->
+      <div class="insights-toggle-bar" onclick="toggleInsights(this)">
+        <span class="insights-toggle-label">▸ &nbsp;Key Insights</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+      <div class="insights-body">
+        <div class="insights-content">
+          <div class="bullet">
+            <div class="bullet-dot"></div>
+            <p>With profit margin <span class="neg">−26.8%</span>, the platform is making a loss on every order across all payment methods.</p>
+          </div>
+          <div class="bullet">
+            <div class="bullet-dot"></div>
+            <p>Core costs — delivery fee, payment processing fee, discounts & offers — generate a net loss of <span class="neg">−5k INR</span> per order before accounting for refunds and chargebacks.</p>
+          </div>
+          <div class="bullet">
+            <div class="bullet-dot"></div>
+            <p>Discounts and offers account for <span class="hi">~56%</span> of core costs. Orders <em>without</em> discounts are profitable, indicating current discount schemes are not effectively structured.</p>
+          </div>
+          <div class="bullet">
+            <div class="bullet-dot"></div>
+            <p>The <span class="neg">New User 15% discount</span> generates the largest individual loss (−23k INR), suggesting that aggressive acquisition discounting sacrifices profitability without a clear retention payoff.</p>
+          </div>
+          <div class="bullet">
+            <div class="bullet-dot"></div>
+            <p>High discount rates attract new users but the current rate structure needs review — a targeted discount cap or tiered offer scheme could materially improve margin without reducing acquisition volume.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Trinh Thị Liên Anh &nbsp;·&nbsp; Ho Chi Minh City</p>
+  <div style="display:flex;gap:20px;">
+    <a href="https://www.linkedin.com/in/your-linkedin" target="_blank">LinkedIn</a>
+    <a href="https://public.tableau.com/app/profile/your-profile" target="_blank">Tableau Public</a>
+    <a href="mailto:your-email@gmail.com">Contact</a>
   </div>
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (id === 'food') setTimeout(initFoodViz, 80);
+  }
+
+  function toggleInsights(bar) {
+    var body = bar.nextElementSibling;
+    var icon = bar.querySelector('.toggle-icon');
+    var label = bar.querySelector('.insights-toggle-label');
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open');
+    icon.classList.toggle('open');
+    label.textContent = (isOpen ? '▸' : '▾') + '  Key Insights';
+  }
+</script>
+
 </body>
 </html>
