@@ -62,18 +62,18 @@
 
     .wordmark {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 22px;
+      font-weight: 700;
       letter-spacing: .14em;
-      color: var(--dark);
+      color: #800020;
     }
 
     .tab-nav { display: flex; gap: 4px; }
 
     .tab-btn {
       background: none;
-      border: 1px solid transparent;
-      color: var(--muted);
+      border: 1px solid var(--dark);
+      color: var(--dark);
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
       font-weight: 400;
@@ -83,17 +83,18 @@
       cursor: pointer;
       transition: all .18s;
       white-space: nowrap;
+      outline: none;
     }
 
     .tab-btn:hover {
-      color: var(--milk);
-      border-color: var(--border);
+      color: #1DB954;
+      border-color: #1DB954;
       background: var(--tag-bg);
     }
 
     .tab-btn.active {
-      background: var(--dark);
-      border-color: var(--dark);
+      background: #800020;
+      border-color: #800020;
       color: #F9EBD8;
       font-weight: 500;
     }
@@ -339,7 +340,7 @@
       gap: 12px;
     }
 
-    footer p { font-size: 11.5px; color: var(--muted); }
+    footer p { font-size: 11.5px; color: #800020; font-weight: 500; }
 
     footer a {
       color: var(--milk);
@@ -458,19 +459,19 @@
       <div class="dash-title-block">
         <p class="dash-eyebrow">Tableau · Revenue & Subscription</p>
         <h1 class="dash-title">Spotify Revenue, Expenses & Premium Users</h1>
-        <p class="dash-meta">P&L and subscription growth analysis for Spotify. Tracks revenue mix (Premium vs Ad-Supported), operating cost structure, and Premium user acquisition trends over time.</p>
+        <p class="dash-meta">Quarterly P&L and subscription analysis for Spotify (Q1 2017 – Q1 2023). Tracks revenue mix (Premium vs Ad-Supported), gross profit trend, Premium ARPU, and Monthly Active User growth over 25 quarters.</p>
       </div>
       <div class="kpi-row">
         <div class="kpi">
-          <div class="kpi-val">~$13.2B</div>
+          <div class="kpi-val">€3,166M</div>
           <div class="kpi-lbl">Peak Revenue</div>
         </div>
         <div class="kpi">
-          <div class="kpi-val">236M+</div>
-          <div class="kpi-lbl">Premium Users</div>
+          <div class="kpi-val">515M</div>
+          <div class="kpi-lbl">Peak Total MAUs</div>
         </div>
         <div class="kpi">
-          <div class="kpi-val">~88%</div>
+          <div class="kpi-val">~89%</div>
           <div class="kpi-lbl">Revenue from Premium</div>
         </div>
       </div>
@@ -483,7 +484,6 @@
           (function(){
             var d = document.getElementById('viz1784186352967');
             var v = d.getElementsByTagName('object')[0];
-            var w = d.offsetWidth || window.innerWidth - 96;
             v.style.width = '100%';
             v.style.height = Math.round(w * 0.62) + 'px';
             var s = document.createElement('script');
@@ -501,23 +501,23 @@
         <div class="insights-content">
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Premium subscription consistently contributes <span class="pos">~87–88%</span> of total revenue, confirming it as the core monetisation engine — ad-supported revenue remains structurally secondary.</p>
+            <p>Premium subscription is the dominant revenue engine, contributing <span class="pos">70–93%</span> of total revenue across the period — averaging ~88% — while Ad-supported revenue accounts for only <span class="hi">7–15%</span>, remaining structurally secondary despite MAU growth.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Premium user base has grown significantly over the period, but <span class="hi">Average Revenue Per User (ARPU) has declined</span> — indicating pricing pressure from discounted family/student plans and emerging market expansion.</p>
+            <p>Total MAUs grew from <span class="pos">131M (Q1 2017)</span> to <span class="pos">515M (Q1 2023)</span>, but Premium ARPU declined from <span class="neg">€5.46 to €4.32</span> over the same period — indicating that user growth has been driven by lower-priced plans (family, student, emerging markets), compressing per-user monetisation.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Cost of Revenue (royalties & licensing) tracks closely with revenue growth, keeping gross margin range <span class="hi">relatively stable at ~25–28%</span> — margin expansion is constrained by licensing obligations.</p>
+            <p>Gross margin is volatile and wide-ranging (<span class="hi">11.6–40.2%</span>), not stable as it might appear — recent quarters have settled around <span class="hi">~25%</span>, reflecting ongoing pressure from Cost of Revenue (royalties & licensing) growing in line with revenue.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Operating expenses (R&D, S&M, G&A) have grown faster than revenue in several periods, contributing to <span class="neg">operating losses</span> even as top-line scales — profitability depends on operational leverage improving over time.</p>
+            <p>Despite revenue growth, Spotify recorded <span class="neg">operating losses in all recent quarters</span> — Q1 2023: −€146M, Q4 2022: −€231M — as R&D, Sales & Marketing, and G&A costs consistently outpace gross profit, making operational leverage the key path to profitability.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Ad-supported segment shows slower monetisation relative to listener growth — a key strategic question is whether ad ARPU can be improved through programmatic and podcast advertising.</p>
+            <p>Ad-supported MAUs make up <span class="hi">~59%</span> of total users but generate a fraction of revenue — Ad gross profit has been negative in multiple quarters, suggesting the ad business is not yet self-sustaining and cross-subsidised by Premium.</p>
           </div>
         </div>
       </div>
