@@ -19,6 +19,20 @@
       --mint:     #3D8A60;
       --berry:    #B03050;
       --tag-bg:   #EDE6DC;
+
+      /* Spotify panel overrides — applied via .spotify-panel */
+      --sp-bg:       #0D0D0D;
+      --sp-surface:  #181818;
+      --sp-border:   #282828;
+      --sp-text:     #FFFFFF;
+      --sp-sub:      #B3B3B3;
+      --sp-muted:    #6A6A6A;
+      --sp-green:    #1DB954;
+      --sp-green-dk: #158A3E;
+      --sp-tag-bg:   #242424;
+      --sp-pos:      #1DB954;
+      --sp-neg:      #E05252;
+      --sp-hi:       #F5A623;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -262,6 +276,58 @@
 
     .insights-content .bullet p { margin-bottom: 0; }
 
+    /* ── SPOTIFY PANEL THEME ── */
+    .spotify-panel {
+      background: var(--sp-bg);
+      min-height: calc(100vh - 56px);
+    }
+
+    .spotify-panel .dash-panel {
+      background: var(--sp-bg);
+    }
+
+    .spotify-panel .dash-eyebrow { color: var(--sp-green); }
+    .spotify-panel .dash-title   { color: var(--sp-text); }
+    .spotify-panel .dash-meta    { color: var(--sp-sub); }
+
+    .spotify-panel .kpi {
+      background: var(--sp-surface);
+      border-color: var(--sp-border);
+    }
+
+    .spotify-panel .kpi-val { color: var(--sp-green); }
+    .spotify-panel .kpi-lbl { color: var(--sp-muted); }
+
+    .spotify-panel .tableau-wrap {
+      background: var(--sp-surface);
+      border-color: var(--sp-border);
+    }
+
+    .spotify-panel .insight-row {
+      background: var(--sp-border);
+      border-top-color: var(--sp-border);
+    }
+
+    .spotify-panel .insight { background: var(--sp-surface); }
+    .spotify-panel .i-label { color: var(--sp-green); }
+    .spotify-panel .insight p { color: var(--sp-sub); }
+    .spotify-panel .hi  { color: var(--sp-hi); }
+    .spotify-panel .pos { color: var(--sp-pos); }
+    .spotify-panel .neg { color: var(--sp-neg); }
+
+    .spotify-panel .insights-toggle-bar {
+      background: var(--sp-surface);
+      border-top-color: var(--sp-border);
+    }
+
+    .spotify-panel .insights-toggle-bar:hover { background: var(--sp-tag-bg); }
+    .spotify-panel .insights-toggle-label { color: var(--sp-green); }
+    .spotify-panel .toggle-icon { color: var(--sp-muted); }
+
+    .spotify-panel .insights-body { background: var(--sp-surface); border-top-color: var(--sp-border); }
+    .spotify-panel .insights-content p { color: var(--sp-sub); }
+    .spotify-panel .bullet-dot { background: var(--sp-green); }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -300,7 +366,7 @@
   <span class="wordmark">LA &nbsp;·&nbsp; Portfolio</span>
   <nav class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('chocolate', this)">Chocolate Sales</button>
-
+    <button class="tab-btn" onclick="switchTab('spotify', this)">Spotify Revenue</button>
   </nav>
 </header>
 
@@ -383,95 +449,75 @@
   </section>
 </div>
 
-<!-- FOOD DELIVERY PANEL REMOVED -->
-<div id="panel-food" class="panel" style="display:none!important">
+<!-- ══════════════════════════════════
+     PANEL 2 — SPOTIFY REVENUE
+══════════════════════════════════ -->
+<div id="panel-spotify" class="panel spotify-panel">
   <section class="dash-panel">
     <div class="dash-header">
       <div class="dash-title-block">
-        <p class="dash-eyebrow">Tableau · Cost & Profitability</p>
-        <h1 class="dash-title">Food Delivery Cost & Profitability Dashboard</h1>
-        <p class="dash-meta">P&L framework and profitability driver analysis for a food delivery platform. New Delhi dataset via Kaggle. Use Order Date, Discount Offers, and Payment Method filters to segment.</p>
+        <p class="dash-eyebrow">Tableau · Revenue & Subscription</p>
+        <h1 class="dash-title">Spotify Revenue, Expenses & Premium Users</h1>
+        <p class="dash-meta">P&L and subscription growth analysis for Spotify. Tracks revenue mix (Premium vs Ad-Supported), operating cost structure, and Premium user acquisition trends over time.</p>
       </div>
       <div class="kpi-row">
         <div class="kpi">
-          <div class="kpi-val">$126,990</div>
-          <div class="kpi-lbl">Total Revenue</div>
+          <div class="kpi-val">~$13.2B</div>
+          <div class="kpi-lbl">Peak Revenue</div>
         </div>
         <div class="kpi">
-          <div class="kpi-val">($34,052)</div>
-          <div class="kpi-lbl">Total Profit</div>
+          <div class="kpi-val">236M+</div>
+          <div class="kpi-lbl">Premium Users</div>
         </div>
         <div class="kpi">
-          <div class="kpi-val">−26.8%</div>
-          <div class="kpi-lbl">Profit Margin</div>
+          <div class="kpi-val">~88%</div>
+          <div class="kpi-lbl">Revenue from Premium</div>
         </div>
       </div>
     </div>
 
     <div class="tableau-wrap">
       <div class="tableau-inner">
-        <div class="tableauPlaceholder" id="viz1780535461473" style="position:relative;">
-          <noscript><a href="#"><img alt="Performance Dashboard" src="https://public.tableau.com/static/images/Fo/FoodDeliveryCostandProfitabilityDashboard/PerformanceDashboard/1_rss.png" style="border:none;"/></a></noscript>
-          <object class="tableauViz" style="display:none;">
-            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"/>
-            <param name="embed_code_version" value="3"/>
-            <param name="site_root" value=""/>
-            <param name="name" value="FoodDeliveryCostandProfitabilityDashboard/PerformanceDashboard"/>
-            <param name="tabs" value="no"/>
-            <param name="toolbar" value="yes"/>
-            <param name="static_image" value="https://public.tableau.com/static/images/Fo/FoodDeliveryCostandProfitabilityDashboard/PerformanceDashboard/1.png"/>
-            <param name="animate_transition" value="yes"/>
-            <param name="display_static_image" value="yes"/>
-            <param name="display_spinner" value="yes"/>
-            <param name="display_overlay" value="yes"/>
-            <param name="display_count" value="yes"/>
-            <param name="language" value="en-US"/>
-            <param name="filter" value="publish=yes"/>
-          </object>
-        </div>
-        <script type="text/javascript">
-          window._foodVizReady = false;
-          function initFoodViz() {
-            if (window._foodVizReady) return;
-            window._foodVizReady = true;
-            var divElement = document.getElementById('viz1780535461473');
-            var vizElement = divElement.getElementsByTagName('object')[0];
-            var w = window.innerWidth - 96;
-            vizElement.style.width = '100%';
-            vizElement.style.height = Math.round(w * 0.75) + 'px';
-            var scriptElement = document.createElement('script');
-            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
-            vizElement.parentNode.insertBefore(scriptElement, vizElement);
-          }
+        <div class='tableauPlaceholder' id='viz1784186352967' style='position: relative'><noscript><a href='#'><img alt='Performance dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sp&#47;SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sp&#47;SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+        <script type='text/javascript'>
+          (function(){
+            var d = document.getElementById('viz1784186352967');
+            var v = d.getElementsByTagName('object')[0];
+            var w = d.offsetWidth || window.innerWidth - 96;
+            v.style.width = '100%';
+            v.style.height = Math.round(w * 0.68) + 'px';
+            var s = document.createElement('script');
+            s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            v.parentNode.insertBefore(s, v);
+          })();
         </script>
       </div>
 
-      <!-- Insights toggle -->
-      <div class="insights-toggle-bar" onclick="toggleInsights(this)">
-        <span class="insights-toggle-label">▸ &nbsp;Key Insights</span>
-        <span class="toggle-icon">▾</span>
+      <!-- Key Insights — always visible -->
+      <div style="padding: 12px 22px; border-top: 1px solid var(--sp-border); background: var(--sp-surface);">
+        <p style="font-size:13px; letter-spacing:.15em; text-transform:uppercase; color:var(--sp-green); font-weight:500;">Key Insights</p>
       </div>
-      <div class="insights-body">
+      <div class="insights-body open" style="display:block; border-top: 1px solid var(--sp-border);">
         <div class="insights-content">
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>With profit margin <span class="neg">−26.8%</span>, the platform is making a loss on every order across all payment methods.</p>
+            <p>Premium subscription consistently contributes <span class="pos">~87–88%</span> of total revenue, confirming it as the core monetisation engine — ad-supported revenue remains structurally secondary.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Core costs — delivery fee, payment processing fee, discounts & offers — generate a net loss of <span class="neg">−5k INR</span> per order before accounting for refunds and chargebacks.</p>
+            <p>Premium user base has grown significantly over the period, but <span class="hi">Average Revenue Per User (ARPU) has declined</span> — indicating pricing pressure from discounted family/student plans and emerging market expansion.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>Discounts and offers account for <span class="hi">~56%</span> of core costs. Orders <em>without</em> discounts are profitable, indicating current discount schemes are not effectively structured.</p>
+            <p>Cost of Revenue (royalties & licensing) tracks closely with revenue growth, keeping gross margin range <span class="hi">relatively stable at ~25–28%</span> — margin expansion is constrained by licensing obligations.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>The <span class="neg">New User 15% discount</span> generates the largest individual loss (−23k INR), suggesting that aggressive acquisition discounting sacrifices profitability without a clear retention payoff.</p>
+            <p>Operating expenses (R&D, S&M, G&A) have grown faster than revenue in several periods, contributing to <span class="neg">operating losses</span> even as top-line scales — profitability depends on operational leverage improving over time.</p>
           </div>
           <div class="bullet">
             <div class="bullet-dot"></div>
-            <p>High discount rates attract new users but the current rate structure needs review — a targeted discount cap or tiered offer scheme could materially improve margin without reducing acquisition volume.</p>
+            <p>Ad-supported segment shows slower monetisation relative to listener growth — a key strategic question is whether ad ARPU can be improved through programmatic and podcast advertising.</p>
           </div>
         </div>
       </div>
@@ -483,9 +529,8 @@
 <footer>
   <p>Trinh Thị Liên Anh &nbsp;·&nbsp; Ho Chi Minh City</p>
   <div style="display:flex;gap:20px;">
-    <a href="https://www.linkedin.com/in/your-linkedin" target="_blank">LinkedIn</a>
-    <a href="https://public.tableau.com/app/profile/your-profile" target="_blank">Tableau Public</a>
-    <a href="mailto:your-email@gmail.com">Contact</a>
+    <a href="linkedin.com/in/anh-trinh-01" target="_blank">LinkedIn</a>
+    <a href="mailto:lienanh.trinh@gmail.com">Email</a>
   </div>
 </footer>
 
@@ -497,6 +542,7 @@
     btn.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (id === 'food') setTimeout(initFoodViz, 80);
+    if (id === 'spotify') setTimeout(initSpotifyViz, 80);
   }
 
   function toggleInsights(bar) {
