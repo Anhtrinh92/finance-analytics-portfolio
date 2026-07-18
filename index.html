@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -334,6 +335,59 @@
     .spotify-panel .insights-content p { color: #FFFFFF; }
     .spotify-panel .bullet-dot { background: var(--sp-green); }
 
+    /* ── CAPEX PANEL THEME ── */
+    .capex-panel {
+      --cx-bg:      #221A14;
+      --cx-surface: #2E241C;
+      --cx-border:  #4A3B2C;
+      --cx-text:    #F7EFE4;
+      --cx-sub:     #D8C4AC;
+      --cx-orange:  #F99D36;
+      --cx-burnt:   #FFB763;
+      --cx-go:      #34C185;
+      --cx-nogo:    #F0685C;
+      background: var(--cx-bg);
+      min-height: calc(100vh - 56px);
+    }
+
+    .capex-panel .dash-panel { background: var(--cx-bg); }
+    .capex-panel .dash-eyebrow { color: var(--cx-orange); }
+    .capex-panel .dash-title   { color: var(--cx-text); }
+    .capex-panel .dash-meta    { color: var(--cx-sub); }
+
+    .capex-panel .kpi {
+      background: var(--cx-surface);
+      border-color: var(--cx-border);
+    }
+    .capex-panel .kpi-val { color: var(--cx-orange); }
+    .capex-panel .kpi-lbl { color: var(--cx-sub); }
+
+    .capex-panel .tableau-wrap {
+      background: var(--cx-surface);
+      border-color: var(--cx-border);
+    }
+
+    .capex-panel .insight-row {
+      background: var(--cx-border);
+      border-top-color: var(--cx-border);
+    }
+    .capex-panel .insight { background: var(--cx-surface); }
+    .capex-panel .i-label { color: var(--cx-orange); }
+    .capex-panel .insight p { color: var(--cx-sub); }
+    .capex-panel .hi  { color: var(--cx-burnt); }
+    .capex-panel .pos { color: var(--cx-go); }
+    .capex-panel .neg { color: var(--cx-nogo); }
+
+    .capex-panel .decision-tag {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 1px 9px;
+      border-radius: 20px;
+    }
+    .capex-panel .decision-tag.go   { background: rgba(52,193,133,.15); color: var(--cx-go); }
+    .capex-panel .decision-tag.nogo { background: rgba(240,104,92,.15); color: var(--cx-nogo); }
+
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
@@ -373,6 +427,7 @@
   <nav class="tab-nav">
     <button class="tab-btn active" onclick="switchTab('chocolate', this)">Chocolate Sales</button>
     <button class="tab-btn" onclick="switchTab('spotify', this)">Spotify Revenue</button>
+    <button class="tab-btn" onclick="switchTab('capex', this)">CAPEX Appraisal</button>
   </nav>
 </header>
 
@@ -485,7 +540,7 @@
 
     <div class="tableau-wrap">
       <div class="tableau-inner">
-        <div class='tableauPlaceholder' id='viz1784186352967' style='position: relative'><noscript><a href='#'><img alt='Performance dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sp&#47;SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sp&#47;SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
+        <div class='tableauPlaceholder' id='viz1784186352967' style='position: relative'><noscript><a href='#'><img alt='Performance dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sp&#47;SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard' /><param name='device' value='desktop' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Sp&#47;SpotifyRevenue-ExpensesandItsPremiumUsers&#47;Performancedashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>
         <script type='text/javascript'>
           (function(){
             var d = document.getElementById('viz1784186352967');
@@ -530,6 +585,86 @@
             <div class="bullet-dot"></div>
             <p>A notable spike in R&D, Sales & Marketing, and G&A costs in 2022 drove a significant operating loss that year — likely reflecting major investments in podcast ecosystems, Gen Z content strategies, or AI-driven personalisation capabilities.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════
+     PANEL 3 — CAPEX INVESTMENT APPRAISAL
+══════════════════════════════════ -->
+<div id="panel-capex" class="panel capex-panel">
+  <section class="dash-panel">
+    <div class="dash-header">
+      <div class="dash-title-block">
+        <p class="dash-eyebrow">Tableau · Capital Budgeting</p>
+        <h1 class="dash-title">CAPEX Investment Appraisal — Portfolio Review</h1>
+        <p class="dash-meta">NPV, IRR, Payback & discount-rate sensitivity across 6 illustrative CAPEX proposals (WACC 10%). Ranks projects, visualizes the payback trajectory, and flags NPV/IRR ranking conflicts for approval decisions.</p>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-val">6</div>
+          <div class="kpi-lbl">Projects Evaluated</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val">3 / 6</div>
+          <div class="kpi-lbl">Recommended (Go)</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-val">$671K</div>
+          <div class="kpi-lbl">Combined NPV — Go Projects</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tableau-wrap">
+      <div class="tableau-inner">
+        <div class="tableauPlaceholder" id="viz-capex" style="position:relative;">
+          <noscript><a href="#"><img alt="Capex Portfolio Review" src="https://public.tableau.com/static/images/Ca/CapexPortfolioReview/CapexPortfolioReview/1_rss.png" style="border:none;width:100%;"/></a></noscript>
+          <object class="tableauViz" style="display:none;">
+            <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F"/>
+            <param name="embed_code_version" value="3"/>
+            <param name="site_root" value=""/>
+            <param name="name" value="CapexPortfolioReview/CapexPortfolioReview"/>
+            <param name="device" value="desktop"/>
+            <param name="tabs" value="no"/>
+            <param name="toolbar" value="yes"/>
+            <param name="static_image" value="https://public.tableau.com/static/images/Ca/CapexPortfolioReview/CapexPortfolioReview/1.png"/>
+            <param name="animate_transition" value="yes"/>
+            <param name="display_static_image" value="yes"/>
+            <param name="display_spinner" value="yes"/>
+            <param name="display_overlay" value="yes"/>
+            <param name="display_count" value="yes"/>
+            <param name="language" value="en-US"/>
+          </object>
+        </div>
+        <script type="text/javascript">
+          (function(){
+            var d = document.getElementById('viz-capex');
+            var v = d.getElementsByTagName('object')[0];
+            var w = d.offsetWidth || window.innerWidth - 96;
+            v.style.width = '100%';
+            v.style.height = Math.round(w * 0.78) + 'px';
+            var s = document.createElement('script');
+            s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            v.parentNode.insertBefore(s, v);
+          })();
+        </script>
+      </div>
+
+      <div class="insight-row">
+        <div class="insight">
+          <p class="i-label">Recommended for Approval</p>
+          <p><span class="pos">Delivery Fleet Renewal</span> leads on NPV ($258K), IRR (22.5%) and payback (2.71y) — approved alongside Energy Efficiency Retrofit and Automated Packaging Line, all NPV-positive at WACC 10%.</p>
+        </div>
+        <div class="insight">
+          <p class="i-label">Portfolio Discipline</p>
+          <p>3 of 6 proposals were declined despite generating positive annual cash flow — their returns simply don't clear the cost of capital. Not every funded-looking project creates value.</p>
+        </div>
+        <div class="insight">
+          <p class="i-label">NPV vs. IRR Conflict</p>
+          <p>Where the two metrics disagree in magnitude, NPV was used as the decision criterion — it reflects value created in absolute currency, while IRR alone can mislead when comparing projects of very different scale.</p>
         </div>
       </div>
     </div>
